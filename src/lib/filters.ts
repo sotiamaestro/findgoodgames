@@ -172,7 +172,8 @@ export type RowDef = { key: string; label: string; title: string; editorial?: bo
 export function buildRows(games: Game[], f: Filters, now = Date.now()): RowDef[] {
   const base = games.filter((g) => passesBase(g, f));
   const cutoff = now - LEFT_EA_DAYS * 86400_000;
-  const picks = base.filter((g) => g.pick).sort((a, b) => b.value - a.value);
+  // Curated order: the position in data/picks.json, so the row only changes when the file does.
+  const picks = base.filter((g) => g.pick).sort((a, b) => (a.pickRank ?? 1e9) - (b.pickRank ?? 1e9) || b.value - a.value);
   const gems = base.filter((g) => isHiddenGem(g)).sort((a, b) => b.value - a.value);
   const sale = base.filter((g) => g.price.off > 0 && reviewTotal(g) >= 200 && g.rev.pct >= 80).sort((a, b) => b.price.off - a.price.off || b.value - a.value);
   const leftEa = base

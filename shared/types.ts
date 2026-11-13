@@ -18,6 +18,7 @@ export type Game = {
   value: number;
   pick: string | null; // curated one-liner if the game is in picks.json
   best: string | null; // curated "best with" party size from picks.json
+  pickRank: number | null; // 1-based position in picks.json; the Crew Picks row keeps that order
   /** Steam category 20 (MMO) present. Drives the "Hide MMOs" filter. */
   mmo: boolean;
 };

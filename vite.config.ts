@@ -14,6 +14,7 @@ type BootGame = {
   leftEaAt: string | null;
   value: number;
   pick: string | null;
+  pickRank: number | null;
   mmo: boolean;
 };
 
@@ -38,7 +39,7 @@ function bootstrapData(): Plugin {
         .slice(0, 36);
       const byValue = (a: BootGame, b: BootGame) => b.value - a.value;
       const cutoff = Date.now() - 90 * 86400_000;
-      const picks = base.filter((g) => g.pick).sort(byValue).slice(0, 12);
+      const picks = base.filter((g) => g.pick).sort((a, b) => (a.pickRank ?? 1e9) - (b.pickRank ?? 1e9) || b.value - a.value).slice(0, 12);
       const gems = base.filter((g) => g.rev.pct >= 90 && n(g) >= 200 && n(g) <= 5000 && g.price.now <= 1500).sort(byValue).slice(0, 12);
       const sale = base.filter((g) => g.price.off > 0 && n(g) >= 200 && g.rev.pct >= 80).sort((a, b) => b.price.off - a.price.off || b.value - a.value).slice(0, 12);
       const leftEa = base.filter((g) => g.leftEaAt && Date.parse(g.leftEaAt) >= cutoff && n(g) >= 200).sort((a, b) => (a.leftEaAt! < b.leftEaAt! ? 1 : -1)).slice(0, 12);

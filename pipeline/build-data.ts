@@ -401,6 +401,7 @@ function buildDataset(
     for (const t of ids) freq.set(t, (freq.get(t) ?? 0) + 1);
   }
   const vocab = [...freq.entries()].sort((a, b) => b[1] - a[1]).map(([t]) => t);
+  const pickOrder = new Map([...picks.keys()].map((id, i) => [id, i + 1]));
   const index = new Map(vocab.map((t, i) => [t, i]));
   const tagNames = vocab.map((t) => tagNamesById.get(t)!);
 
@@ -428,6 +429,7 @@ function buildDataset(
       value: Math.round(valueScore(wilson, now) * 100) / 100,
       pick: picks.get(g.id)?.line || null,
       best: picks.get(g.id)?.best || null,
+      pickRank: pickOrder.get(g.id) ?? null,
       mmo: g.mmo,
     };
   });
