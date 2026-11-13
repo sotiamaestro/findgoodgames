@@ -29,6 +29,8 @@ Calls made while building, in the order they came up. Each one was settled by te
 
 ## Frontend
 
+19a. **Two fields were added to the brief's `Game` type: `mmo` (category 20, for the Hide MMOs filter) and `best` (the `best` string from picks.json, shown on the Crew Picks card).** Everything else matches the brief's schema exactly.
+
 20a. **Card art opens the Steam store page in a new tab; card text opens the detail sheet.** The brief says a card click opens the store page and that a detail view exists as a side sheet, so the two targets are split by area: the poster is a plain link to `store.steampowered.com/app/<id>` (new tab, works with middle-click and long-press), the name and facts under it open the detail sheet, and the detail sheet carries the secondary `steam://store/<id>` button. Row posters and the editorial card follow the same split.
 20. **Grid cards carry text; row cards are posters only.** The reference grid is posters alone, but the brief lists ten facts per card. Cards in the main grid are 2 columns wide on phones with dense metadata under the art; the horizontal rows (Crew Picks, Hidden Gems, On Sale Now, Just Left Early Access) use poster-only cards with a one-line caption, like Letterboxd's list strips.
 21. **Filter state is in the query string with short keys, and only non-default values are written**, so the bare URL is the default view and a copied link is short. Opening a game (`g=`), the shortlist (`view=shortlist`) and Check a game (`check=`) push history entries so the back button closes them; filter changes replace the entry.

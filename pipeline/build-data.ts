@@ -391,7 +391,8 @@ function buildDataset(
       leftEaAt: g.leftEaAt,
       tags: (perGame.get(g.id) ?? []).map((t) => index.get(t)!),
       value: Math.round(valueScore(wilson, now) * 100) / 100,
-      pick: picks.get(g.id)?.line ?? null,
+      pick: picks.get(g.id)?.line || null,
+      best: picks.get(g.id)?.best || null,
       mmo: g.mmo,
     };
   });

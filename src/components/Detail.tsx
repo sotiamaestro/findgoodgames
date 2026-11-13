@@ -101,7 +101,7 @@ export function Detail({ game: g, party, tagNames, saved, onToggleSave }: Props)
 
         {g.pick ? (
           <div class="detail-section">
-            <span class="label">Crew pick</span>
+            <span class="label">Crew pick{g.best ? ` · best with ${g.best}` : ''}</span>
             <p class="pickline">{g.pick}</p>
           </div>
         ) : null}

@@ -17,6 +17,7 @@ export type Game = {
   tags: number[]; // indexes into Dataset.tagNames
   value: number;
   pick: string | null; // curated one-liner if the game is in picks.json
+  best: string | null; // curated "best with" party size from picks.json
   /** Steam category 20 (MMO) present. Drives the "Hide MMOs" filter. */
   mmo: boolean;
 };

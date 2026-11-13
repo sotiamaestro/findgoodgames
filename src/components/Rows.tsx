@@ -18,7 +18,7 @@ export function Rows({ rows, onOpen, showEa }: Props) {
           </div>
           <div class="strip">
             {row.key === 'picks'
-              ? row.games.slice(0, 24).map((g, i) => <EditorialCard key={g.id} game={g} onOpen={onOpen} eager={rowIndex === 0 && i < 2} />)
+              ? row.games.slice(0, 24).map((g, i) => <EditorialCard key={g.id} game={g} onOpen={onOpen} best={g.best} eager={rowIndex === 0 && i < 2} />)
               : row.games.slice(0, 24).map((g, i) => <PosterCard key={g.id} game={g} rank={i + 1} onOpen={onOpen} showEa={showEa} eager={rowIndex === 0 && i < 4} />)}
           </div>
         </section>
