@@ -159,7 +159,7 @@ export function CheckGame({ query, games, byId, onOpenGame }: Props) {
       <div class="tiles">
         <div class={`tile ${r.anyCoop ? 'yes' : 'no'}`}>
           <span class="k">Co-op</span>
-          <span class="v">{r.anyCoop ? modes.join(', ') : 'None'}</span>
+          <span class={`v ${modes.length > 1 ? 'small' : ''}`}>{r.anyCoop ? modes.join(', ') : 'None'}</span>
         </div>
         <div class={`tile ${r.ea ? 'warn' : 'no'}`}>
           <span class="k">Early Access</span>

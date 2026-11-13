@@ -29,7 +29,8 @@ export function Detail({ game: g, party, tagNames, saved, onToggleSave }: Props)
         <h2 class="detail-title">{g.name}</h2>
         <div class="detail-sub num">
           {g.released ? `Released ${longDate(g.released)}` : ''}
-          {g.leftEaAt && !g.ea ? ` · Left Early Access ${longDate(g.leftEaAt)}` : ''}
+          {g.leftEaAt && !g.ea ? (g.leftEaAt === g.released ? ' (full release after Early Access)' : ` · Left Early Access ${longDate(g.leftEaAt)}`) : ''}
+          {g.ea ? ' · Early Access' : ''}
         </div>
 
         <div class="score num">

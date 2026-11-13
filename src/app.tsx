@@ -59,7 +59,10 @@ export function App() {
 
   // ---- url sync
   const setUrl = useCallback((next: UrlState, push = false) => {
-    setUrlState(next);
+    setUrlState((prev) => {
+      if (prev.view !== next.view) window.scrollTo(0, 0);
+      return next;
+    });
     const href = urlFor(next);
     if (href !== location.pathname + location.search) {
       if (push) history.pushState(null, '', href);

@@ -71,6 +71,8 @@ function clean(s: string): string {
     .replace(/&#39;|&apos;/g, "'")
     .replace(/&amp;/g, '&')
     .replace(/<[^>]+>/g, '')
+    .replace(/\s*\u2014\s*/g, ' - ')
+    .replace(/\u2013/g, '-')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 200);

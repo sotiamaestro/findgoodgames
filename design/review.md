@@ -33,7 +33,7 @@ Differences:
 
 | Ours | Reference |
 |---|---|
-| (first row on the home page once `data/picks.json` has lines; see home-top.png) | ![Letterboxd year in review](refs/crew-picks-editorial-card__f41976a6.jpg) |
+| ![home top with Crew Picks](shots/home-top.png) | ![Letterboxd year in review](refs/crew-picks-editorial-card__f41976a6.jpg) |
 
 Same: wide art on top, a small uppercase label, a large serif title, a serif body line, a few plain facts underneath.
 
@@ -111,4 +111,26 @@ Differences: the badge is light grey-blue (`--badge`) rather than PlayStation's 
 
 ## Banned-list check
 
-Run against the built CSS (`dist/index.html`, which inlines the stylesheet) and the UI copy (`src/`, `index.html`): no Inter, Geist, Roboto, Space Grotesk, Satoshi, Manrope, Fraunces or Bricolage; no purple, indigo or violet hues (every colour is a token in `src/styles/tokens.css`, listed in DESIGN.md); no gradient text, glass, glow or blob backgrounds (the only gradients are the two solid-to-transparent fades under hero art); no em dashes in copy. The grep commands and their output are recorded at the bottom of this file after each run.
+Run against the built CSS (`dist/index.html`, which inlines the stylesheet) and the UI copy (`src/`, `index.html`): no Inter, Geist, Roboto, Space Grotesk, Satoshi, Manrope, Fraunces or Bricolage; no purple, indigo or violet hues (every colour is a token in `src/styles/tokens.css`, listed in DESIGN.md); no gradient text, glass, glow or blob backgrounds (the only gradients are the two solid-to-transparent fades under hero art); no em dashes in copy. The script is `design/banned-check.sh`; its output from the final build on 13 November 2026:
+
+```
+== banned fonts in built output and source ==
+none
+== purple / indigo / violet (names and hue ranges) ==
+no named purples
+no hex colours between hue 250 and 320
+== em dashes in copy ==
+none
+== gradient text / glass / glow ==
+none
+```
+
+Steam's own descriptions can contain em dashes; the pipeline and the checker function replace them with plain dashes before they reach a card.
+
+## Lighthouse (mobile, production build, 13 November 2026)
+
+| Performance | Accessibility | Best practices | SEO | FCP | LCP | TBT | CLS |
+|---|---|---|---|---|---|---|---|
+| 92 | 100 | 100 | 100 | 1.5 s | 3.3 s | 80 ms | 0.01 |
+
+The LCP element is the first Crew Picks header image, which the build preloads from index.html. The remaining Lighthouse notes are Steam's JPEG posters (no WebP or smaller portrait size exists on Steam's CDN) and the grid's DOM size at 60 cards.

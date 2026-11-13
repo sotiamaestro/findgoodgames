@@ -2,9 +2,9 @@
 // Each case is one or two live Steam requests, so run it when nothing else is
 // talking to Steam.
 //
-//   npx tsx netlify/functions/check-game.test.mjs
+//   npx tsx scripts/check-game.test.mjs
 
-import handler from './check-game.mts';
+import handler from '../netlify/functions/check-game.mts';
 
 const cases = [
   ['Portal 2 by appid (co-op, released)', '?appid=620'],

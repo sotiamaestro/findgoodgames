@@ -1288,6 +1288,11 @@ img {
   line-height: 1.1;
 }
 
+.tile .v.small {
+  font-size: var(--t2);
+  line-height: 1.25;
+}
+
 .tile .v small {
   font-size: var(--t1);
   font-weight: 600;
@@ -1436,9 +1441,27 @@ img {
   font-size: var(--t2);
 }
 
+.check-row > svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--text-3);
+}
+
 .check-row.more {
   color: var(--info);
   font-weight: 600;
+}
+
+.check-row.more > svg {
+  color: var(--info);
+  width: 20px;
+  height: 20px;
 }
 
 .verdict {

@@ -113,6 +113,8 @@ export function decodeEntities(s: string): string {
     .replace(/&gt;/g, '>')
     .replace(/&nbsp;/g, ' ')
     .replace(/<[^>]+>/g, '')
+    .replace(/\s*\u2014\s*/g, ' - ')
+    .replace(/\u2013/g, '-')
     .replace(/\s+/g, ' ')
     .trim();
 }
