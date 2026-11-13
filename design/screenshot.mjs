@@ -66,7 +66,7 @@ await page.screenshot({ path: out + 'shortlist.png' });
 
 // 5. Check a game (dataset hit).
 await page.goto(base + '/?check=portal', { waitUntil: 'domcontentloaded' });
-await page.waitForSelector('.check-row, .verdict', { timeout: 30_000 });
+await page.waitForSelector('.check-row, .verdict, .notice', { timeout: 30_000 });
 await page.waitForTimeout(800);
 await page.screenshot({ path: out + 'check-results.png' });
 

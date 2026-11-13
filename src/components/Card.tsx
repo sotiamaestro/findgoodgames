@@ -47,18 +47,7 @@ export function GameCard({ game: g, party, preferLocal, saved, showEa, eager, ta
   const one = oneCopy(g);
   return (
     <article class="card">
-      <a
-        href={steamStoreUrl(g.id)}
-        target="_blank"
-        rel="noopener"
-        onClick={(e) => {
-          // Plain click opens the detail sheet; modifier clicks keep the native new-tab behaviour.
-          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
-          e.preventDefault();
-          onOpen(g);
-        }}
-        aria-label={g.name}
-      >
+      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" aria-label={`${g.name} on Steam`} title="Open the Steam store page">
         <Art game={g} eager={eager}>
           {showEa && g.ea ? (
             <div class="corner">
@@ -70,6 +59,7 @@ export function GameCard({ game: g, party, preferLocal, saved, showEa, eager, ta
       <button class={`save ${saved ? 'on' : ''}`} onClick={() => onToggleSave(g)} aria-label={saved ? 'Remove from shortlist' : 'Add to shortlist'} aria-pressed={saved}>
         {saved ? <Icon.Check /> : <Icon.Plus />}
       </button>
+      <button class="details" onClick={() => onOpen(g)} aria-label={`Details for ${g.name}`}>
       <div class="name">{g.name}</div>
       <div class="price num">
         {g.price.free ? <span class="free">Free</span> : <span>{usd(g.price.now)}</span>}
@@ -112,6 +102,7 @@ export function GameCard({ game: g, party, preferLocal, saved, showEa, eager, ta
           </span>
         )}
       </div>
+      </button>
     </article>
   );
 }
@@ -121,22 +112,26 @@ type PosterProps = { game: Game; rank?: number; onOpen: (g: Game) => void; showE
 /** Poster-only card for horizontal rows. */
 export function PosterCard({ game: g, rank, onOpen, showEa, eager }: PosterProps) {
   return (
-    <button class="poster-card" onClick={() => onOpen(g)}>
-      <Art game={g} eager={eager}>
-        {rank ? <span class="rank num">{rank}</span> : null}
-        {showEa && g.ea ? (
-          <div class="corner">
-            <span class="badge ea">EA</span>
-          </div>
-        ) : null}
-      </Art>
-      <div class="name">{g.name}</div>
-      <div class="meta num">
-        <span class="pct">{g.rev.pct}%</span>
-        <span>{usdShort(g.price.now)}</span>
-        {g.price.off > 0 ? <span class="badge off">-{g.price.off}%</span> : null}
-      </div>
-    </button>
+    <div class="poster-card">
+      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" aria-label={`${g.name} on Steam`} title="Open the Steam store page">
+        <Art game={g} eager={eager}>
+          {rank ? <span class="rank num">{rank}</span> : null}
+          {showEa && g.ea ? (
+            <div class="corner">
+              <span class="badge ea">EA</span>
+            </div>
+          ) : null}
+        </Art>
+      </a>
+      <button class="caption" onClick={() => onOpen(g)} aria-label={`Details for ${g.name}`}>
+        <div class="name">{g.name}</div>
+        <div class="meta num">
+          <span class="pct">{g.rev.pct}%</span>
+          <span>{usdShort(g.price.now)}</span>
+          {g.price.off > 0 ? <span class="badge off">-{g.price.off}%</span> : null}
+        </div>
+      </button>
+    </div>
   );
 }
 
@@ -145,9 +140,11 @@ type EditorialProps = { game: Game; onOpen: (g: Game) => void; best?: string | n
 /** Crew Picks card: header art, small uppercase label, serif title, the one-liner. */
 export function EditorialCard({ game: g, onOpen, best, eager }: EditorialProps) {
   return (
-    <button class="edit-card" onClick={() => onOpen(g)}>
-      <Art game={g} wide eager={eager} />
-      <div class="body">
+    <div class="edit-card">
+      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" aria-label={`${g.name} on Steam`} title="Open the Steam store page">
+        <Art game={g} wide eager={eager} />
+      </a>
+      <button class="body" onClick={() => onOpen(g)} aria-label={`Details for ${g.name}`}>
         <span class="label">Crew pick{best ? ` · best with ${best}` : ''}</span>
         <span class="title">{g.name}</span>
         <span class="line">{g.pick}</span>
@@ -158,7 +155,7 @@ export function EditorialCard({ game: g, onOpen, best, eager }: EditorialProps) 
           {g.price.off > 0 ? <span class="badge off">-{g.price.off}%</span> : null}
           {g.gfn.ok ? <span class="badge gfn">GFN</span> : null}
         </span>
-      </div>
-    </button>
+      </button>
+    </div>
   );
 }
