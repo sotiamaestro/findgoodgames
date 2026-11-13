@@ -252,6 +252,19 @@ export async function getReviewTotals(appid: number, log?: (l: string) => void):
   }
 }
 
+/** Fallback blurb for older store pages that carry no short_description in GetItems. */
+export async function getAppDetailsBlurb(appid: number, log?: (l: string) => void): Promise<string | null> {
+  const res = await rlFetch(`https://store.steampowered.com/api/appdetails?appids=${appid}&cc=us&l=english&filters=basic`, { log, timeoutMs: 30_000 });
+  if (!res.ok) return null;
+  try {
+    const d = (JSON.parse(res.text) as Record<string, { success: boolean; data?: { short_description?: string; about_the_game?: string } }>)[String(appid)];
+    const text = d?.data?.short_description || d?.data?.about_the_game || '';
+    return text ? truncate(decodeEntities(text), 160) : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getTagNames(log?: (l: string) => void): Promise<Map<number, string>> {
   const res = await rlFetch('https://api.steampowered.com/IStoreService/GetTagList/v1/?language=english', { log });
   const data = JSON.parse(res.text) as { response?: { tags?: Array<{ tagid: number; name: string }> } };

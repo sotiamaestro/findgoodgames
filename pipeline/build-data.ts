@@ -25,6 +25,7 @@ import {
   getReviewTotals,
   getTagNames,
   getCategoryNames,
+  getAppDetailsBlurb,
   hasAnyCoop,
   isAdult,
   steamSpyTag,
@@ -71,6 +72,8 @@ type Cache = {
   gfn: { at: string; steam: Record<string, string> } | null;
   /** Store records kept for games that fail to refetch (keeps cached data instead of dropping). */
   store: Record<string, { at: string; rec: StoreRecord }>;
+  /** appdetails blurbs for games whose GetItems record has no short description; 30 days. */
+  blurbs: Record<string, { at: string; blurb: string | null }>;
 };
 
 const REVIEW_TTL_MS = 20 * 3600_000;
@@ -78,7 +81,7 @@ const PCGW_TTL_MS = 30 * 86400_000;
 const STORE_TTL_MS = 30 * 86400_000;
 
 function emptyCache(): Cache {
-  return { version: 2, reviews: {}, pcgw: {}, history: {}, gfn: null, store: {} };
+  return { version: 2, reviews: {}, pcgw: {}, history: {}, gfn: null, store: {}, blurbs: {} };
 }
 
 async function loadCache(): Promise<Cache> {
@@ -173,7 +176,7 @@ async function stageCandidates(picks: Map<number, Pick>): Promise<Map<number, Ra
 
 function stageStoreFilter(items: Map<number, RawStoreItem>, cache: Cache): Stage2[] {
   const out: Stage2[] = [];
-  const drops = { notGame: 0, comingSoon: 0, noCoop: 0, adult: 0, fewReviews: 0, broken: 0 };
+  const drops = { notGame: 0, comingSoon: 0, noCoop: 0, adult: 0, fewReviews: 0, unpurchasable: 0, broken: 0 };
   let genericOnly = 0;
   let ea = 0;
   for (const it of items.values()) {
@@ -188,6 +191,11 @@ function stageStoreFilter(items: Map<number, RawStoreItem>, cache: Cache): Stage
     }
     if (rec.comingSoon || !rec.released) {
       drops.comingSoon++;
+      continue;
+    }
+    if (!rec.free && rec.priceNow == null) {
+      // No purchase option and not free to play: delisted or only sold inside a bundle.
+      drops.unpurchasable++;
       continue;
     }
     if (!hasAnyCoop(rec.cats)) {
@@ -209,7 +217,7 @@ function stageStoreFilter(items: Map<number, RawStoreItem>, cache: Cache): Stage
     out.push({ ...rec, coop, mmo: rec.cats.includes(CAT.MMO) });
   }
   log(
-    `[2] store filter: ${out.length} kept (dropped: not a game ${drops.notGame}, unreleased ${drops.comingSoon}, no co-op category ${drops.noCoop}, adult ${drops.adult}, under ${MIN_REVIEWS} reviews ${drops.fewReviews}, broken ${drops.broken}); flagged Early Access ${ea}; generic "Co-op" category only ${genericOnly}`,
+    `[2] store filter: ${out.length} kept (dropped: not a game ${drops.notGame}, unreleased ${drops.comingSoon}, no co-op category ${drops.noCoop}, adult ${drops.adult}, under ${MIN_REVIEWS} reviews ${drops.fewReviews}, not purchasable ${drops.unpurchasable}, broken ${drops.broken}); flagged Early Access ${ea}; generic "Co-op" category only ${genericOnly}`,
   );
   return out;
 }
@@ -278,6 +286,33 @@ function stageInclusion(games: Stage3[]): Stage3[] {
   const out = games.filter((g) => g.pos + g.neg >= MIN_REVIEWS && (100 * g.pos) / (g.pos + g.neg) >= MIN_PCT);
   log(`[4] inclusion (${MIN_REVIEWS}+ reviews, ${MIN_PCT}%+): ${out.length}`);
   return out;
+}
+
+/** Older store pages have no short_description in GetItems; fetch it from appdetails once a month. */
+async function stageBlurbs<T extends { id: number; blurb: string }>(games: T[], cache: Cache): Promise<void> {
+  const need = games.filter((g) => !g.blurb);
+  let fetched = 0;
+  for (const g of need) {
+    const c = cache.blurbs[g.id];
+    if (c && fresh(c.at, STORE_TTL_MS)) {
+      if (c.blurb) g.blurb = c.blurb;
+      continue;
+    }
+    try {
+      const blurb = await getAppDetailsBlurb(g.id, vlog);
+      cache.blurbs[g.id] = { at: NOW.toISOString(), blurb };
+      if (blurb) g.blurb = blurb;
+      fetched++;
+      await saveCache(cache);
+    } catch (err) {
+      if (err instanceof RateLimitedError) {
+        log(`blurbs: store rate limit exhausted; ${need.length - fetched} games keep an empty blurb`);
+        break;
+      }
+    }
+  }
+  await saveCache(cache, true);
+  log(`blurbs: ${need.length} games had no short description in GetItems; ${fetched} fetched from appdetails, ${games.filter((g) => !g.blurb).length} still empty`);
 }
 
 async function stageGfn(cache: Cache): Promise<Map<number, GfnEntry>> {
@@ -434,6 +469,7 @@ async function runFull(cache: Cache): Promise<void> {
   const stage2 = stageStoreFilter(candidates, cache);
   const stage3 = await stageReviews(stage2, cache);
   const stage4 = stageInclusion(stage3);
+  await stageBlurbs(stage4, cache);
   const gfn = await gfnTask;
   const players = await stagePlayers(stage4, cache);
 
@@ -464,10 +500,12 @@ async function runPrices(cache: Cache): Promise<void> {
   }
   const gfn = await stageGfn(cache);
   let changed = 0;
+  const gone = new Set<number>();
   for (const g of prev.games) {
     const it = updates.get(g.id);
     if (it) {
       const rec = compactItem(it);
+      if (rec && !rec.free && rec.priceNow == null) gone.add(g.id);
       if (rec && !rec.comingSoon) {
         const now = rec.priceNow ?? 0;
         const base = rec.priceBase ?? now;
@@ -480,6 +518,10 @@ async function runPrices(cache: Cache): Promise<void> {
       }
     }
     g.gfn = { ok: gfnSupported(gfn.get(g.id)), optimized: null };
+  }
+  if (gone.size) {
+    prev.games = prev.games.filter((g) => !gone.has(g.id));
+    log(`prices: dropped ${gone.size} games that are no longer purchasable`);
   }
   prev.games.sort((a, b) => b.value - a.value);
   prev.generatedAt = NOW.toISOString();

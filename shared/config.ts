@@ -1,8 +1,8 @@
 // Constants shared by the pipeline and the UI so both compute the same scores
 // and apply the same thresholds.
 
-/** value = 100 * wilson - PRICE_WEIGHT * priceUSD. Tuned against the top 30; see DECISIONS.md. */
-export const PRICE_WEIGHT = 0.75;
+/** value = 100 * wilson - PRICE_WEIGHT * priceUSD. Tuned against the top 30 of the first full run; see DECISIONS.md. */
+export const PRICE_WEIGHT = 0.5;
 
 /** Wilson score lower bound at 95% confidence. */
 export const WILSON_Z = 1.96;
