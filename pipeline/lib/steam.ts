@@ -98,9 +98,10 @@ export function assetUrl(assets: RawStoreItem['assets'], file: string | undefine
   return ASSET_BASE + assets.asset_url_format.replace('${FILENAME}', file);
 }
 
+/** Steam shows release dates in Pacific time; use the same day so cards match the store page. */
 export function isoDate(unix: number | undefined): string {
   if (!unix || unix <= 0) return '';
-  return new Date(unix * 1000).toISOString().slice(0, 10);
+  return new Date(unix * 1000).toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' });
 }
 
 export function decodeEntities(s: string): string {

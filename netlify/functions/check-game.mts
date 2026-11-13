@@ -62,7 +62,7 @@ function hasSorted(ids: number[], id: number): boolean {
 }
 
 function isoDate(unix: number | undefined): string | null {
-  return unix && unix > 0 ? new Date(unix * 1000).toISOString().slice(0, 10) : null;
+  return unix && unix > 0 ? new Date(unix * 1000).toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
 }
 
 function clean(s: string): string {

@@ -51,4 +51,14 @@ Calls made while building, in the order they came up. Each one was settled by te
 
 ## Tuning
 
-Filled in from the first full run; see the summary at the bottom of this file once the run finishes.
+First full run, 13 November 2026, default-view pool of 202 games (released, GeForce NOW, $20 or less, 85%+, 200+ reviews, no MMOs). Position of a few well known games by value for each candidate weight, plus how many of the top 30 cost more than $5 / $10:
+
+| weight | top 30 over $5 | over $10 | PlateUp! | Ultimate Chicken Horse | Don't Starve Together | Human Fall Flat | Overcooked! 2 | Left 4 Dead 2 | Terraria | Portal 2 | PEAK |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0.40 | 18 | 5 | 65 | 39 | 50 | 81 | 70 | 8 | 9 | 4 | 14 |
+| **0.50** | 15 | 3 | 73 | 42 | 55 | 87 | 62 | 8 | 9 | 5 | 12 |
+| 0.60 | 15 | 2 | 73 | 47 | 59 | 97 | 62 | 12 | 13 | 6 | 10 |
+| 0.75 | 13 | 0 | 82 | 54 | 61 | 105 | 56 | 15 | 16 | 8 | 10 |
+| 1.00 | 11 | 0 | 91 | 60 | 70 | 124 | 53 | 19 | 20 | 14 | 10 |
+
+Deep Rock Galactic is absent from every column because it costs $29.99 and is outside the default price cap. 0.5 was chosen: it reproduces the brief's calibration sentence and keeps the top 10 made of games people recognise. Lower weights start ranking $15-20 games above $3 games with the same score, which defeats the point of a value sort.

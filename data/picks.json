@@ -5,9 +5,9 @@
     "best": "2-4 players, one screen"
   },
   {
-    "appid": 843380,
-    "line": "A 64-player top-down battle royale with cartoon animals, where your squad drops in together and loots, drives and shoots its way to the last circle.",
-    "best": "4 players"
+    "appid": 3618030,
+    "line": "You wander a nature sanctuary together photographing birds and filling in a shared guidebook; nothing in it attacks you.",
+    "best": "2-4 players"
   },
   {
     "appid": 1942280,
@@ -15,18 +15,18 @@
     "best": "2-4 players, one screen"
   },
   {
-    "appid": 3618030,
-    "line": "You wander a nature sanctuary together photographing birds and filling in a shared guidebook; nothing in it attacks you.",
-    "best": "2-4 players"
+    "appid": 843380,
+    "line": "A 64-player top-down battle royale with cartoon animals, where your squad drops in together and loots, drives and shoots its way to the last circle.",
+    "best": "4 players"
+  },
+  {
+    "appid": 620,
+    "line": "Two players each get a portal gun and test chambers that need all four portals to solve, in a campaign separate from the solo story.",
+    "best": "2 players"
   },
   {
     "appid": 1304680,
     "line": "A hand-animated roguelite where a pair hunts bosses that flee between rooms, swapping weapons and powerups as you chase them.",
-    "best": "2 players"
-  },
-  {
-    "appid": 246620,
-    "line": "Two players evolve one pathogen together, choosing transmissions and symptoms, and race to infect the world before a cure lands.",
     "best": "2 players"
   },
   {
@@ -35,8 +35,18 @@
     "best": "3-6 players, one screen"
   },
   {
-    "appid": 620,
-    "line": "Two players each get a portal gun and test chambers that need all four portals to solve, in a campaign separate from the solo story.",
+    "appid": 550,
+    "line": "Four survivors fight through zombie campaigns where the director decides when the horde hits, and nobody can wander off alone.",
+    "best": "4 players"
+  },
+  {
+    "appid": 105600,
+    "line": "You dig, build and fight bosses together in a 2D world, pooling resources toward gear nobody could craft alone.",
+    "best": "2-8 players"
+  },
+  {
+    "appid": 246620,
+    "line": "Two players evolve one pathogen together, choosing transmissions and symptoms, and race to infect the world before a cure lands.",
     "best": "2 players"
   },
   {
@@ -55,24 +65,9 @@
     "best": "2-4 players"
   },
   {
-    "appid": 1951230,
-    "line": "Two possums raid a town for food while guards chase you, and the run ends when you have eaten enough or been caught.",
-    "best": "2 players"
-  },
-  {
-    "appid": 1078200,
-    "line": "A roguelite platformer with destructible terrain where you dig down through the Abyss together and share whatever loot comes up.",
-    "best": "2-4 players"
-  },
-  {
-    "appid": 550,
-    "line": "Four survivors fight through zombie campaigns where the director decides when the horde hits, and nobody can wander off alone.",
-    "best": "4 players"
-  },
-  {
-    "appid": 105600,
-    "line": "You dig, build and fight bosses together in a 2D world, pooling resources toward gear nobody could craft alone.",
-    "best": "2-8 players"
+    "appid": 4000,
+    "line": "A physics sandbox with no goals: you spawn props and ragdolls on shared servers and play the game modes the community built.",
+    "best": "4-8 players"
   },
   {
     "appid": 3006280,
@@ -80,29 +75,14 @@
     "best": "2-4 players"
   },
   {
-    "appid": 4000,
-    "line": "A physics sandbox with no goals: you spawn props and ragdolls on shared servers and play the game modes the community built.",
-    "best": "4-8 players"
-  },
-  {
-    "appid": 200710,
-    "line": "An action RPG where up to six players clear randomized dungeons together, with pets that run back to town to sell your loot.",
+    "appid": 1078200,
+    "line": "A roguelite platformer with destructible terrain where you dig down through the Abyss together and share whatever loot comes up.",
     "best": "2-4 players"
   },
   {
-    "appid": 1054490,
-    "line": "A calm card game about birds for up to five players, each building a chain of bird effects on their own board over four rounds.",
-    "best": "2-5 players"
-  },
-  {
-    "appid": 33930,
-    "line": "A military simulator with large co-op missions, where a squad plans and carries out operations across open terrain on dedicated servers.",
-    "best": "4-8 players"
-  },
-  {
-    "appid": 4001890,
-    "line": "A physics fishing game for up to four players: you crash on an island and have to catch, cook and boat your way home.",
-    "best": "2-4 players"
+    "appid": 1951230,
+    "line": "Two possums raid a town for food while guards chase you, and the run ends when you have eaten enough or been caught.",
+    "best": "2 players"
   },
   {
     "appid": 2310,
@@ -115,14 +95,14 @@
     "best": "4 players"
   },
   {
-    "appid": 945360,
-    "line": "Four to fifteen crewmates do small tasks on a ship while impostors pick them off, and everyone argues in meetings about who did it.",
-    "best": "6-10 players"
+    "appid": 4001890,
+    "line": "A physics fishing game for up to four players: you crash on an island and have to catch, cook and boat your way home.",
+    "best": "2-4 players"
   },
   {
-    "appid": 49520,
-    "line": "Four vault hunters shoot and loot across Pandora in one shared campaign, with enemies and guns scaling to the party.",
-    "best": "2-4 players"
+    "appid": 1054490,
+    "line": "A calm card game about birds for up to five players, each building a chain of bird effects on their own board over four rounds.",
+    "best": "2-5 players"
   },
   {
     "appid": 55230,
@@ -130,19 +110,69 @@
     "best": "2 players"
   },
   {
+    "appid": 960090,
+    "line": "Four players share one tower defense map, each placing monkey towers and spending their own money as the bloons speed up.",
+    "best": "2-4 players"
+  },
+  {
     "appid": 405290,
     "line": "A side-scrolling brawler where up to four band members fight through a punk-rock apocalypse and level up their characters.",
     "best": "2-4 players"
   },
   {
-    "appid": 582500,
-    "line": "A free two-player puzzle game: you are split up in a frozen castle and can only talk through walkie-talkies to describe what you see.",
+    "appid": 200710,
+    "line": "An action RPG where up to six players clear randomized dungeons together, with pets that run back to town to sell your loot.",
+    "best": "2-4 players"
+  },
+  {
+    "appid": 33930,
+    "line": "A military simulator with large co-op missions, where a squad plans and carries out operations across open terrain on dedicated servers.",
+    "best": "4-8 players"
+  },
+  {
+    "appid": 1836730,
+    "line": "An open-world shooter about speed, with a hoverboard and a grappling hook, playable in co-op from the first mission.",
+    "best": "2-4 players"
+  },
+  {
+    "appid": 945360,
+    "line": "Four to fifteen crewmates do small tasks on a ship while impostors pick them off, and everyone argues in meetings about who did it.",
+    "best": "6-10 players"
+  },
+  {
+    "appid": 1227650,
+    "line": "An open-world platformer where up to four round heroes smash through themed levels and collect everything in sight.",
+    "best": "2-4 players"
+  },
+  {
+    "appid": 3293260,
+    "line": "You build and run a waterpark together, designing slides and watching ragdoll guests fly off them while someone else handles the staff.",
+    "best": "2-4 players"
+  },
+  {
+    "appid": 268990,
+    "line": "A fast 2D action platformer with a two-player campaign built on long combos and a lot of gore.",
     "best": "2 players"
+  },
+  {
+    "appid": 274190,
+    "line": "Up to four action-movie heroes run and gun through destructible levels, and every rescued prisoner swaps you to a new bro with a new gun.",
+    "best": "2-4 players"
   },
   {
     "appid": 282800,
     "line": "A digital board game for four where you roll, fight and collect stars with cute characters, and cards ruin everyone's plans.",
     "best": "4 players"
+  },
+  {
+    "appid": 306020,
+    "line": "A tower defense where two players place monkey towers along the same track and split the money each round.",
+    "best": "2 players"
+  },
+  {
+    "appid": 1361510,
+    "line": "Up to six players brawl through a pixel-art beat 'em up as the turtles, April, Splinter and Casey, with team moves and shared pizza.",
+    "best": "4-6 players"
   },
   {
     "appid": 985890,
@@ -155,44 +185,19 @@
     "best": "2-4 players"
   },
   {
-    "appid": 268990,
-    "line": "A fast 2D action platformer with a two-player campaign built on long combos and a lot of gore.",
-    "best": "2 players"
-  },
-  {
     "appid": 2881650,
     "line": "You film each other doing dangerous things in a monster-filled facility and upload the tape; scarier footage gets more views.",
     "best": "4 players"
   },
   {
-    "appid": 306020,
-    "line": "A tower defense where two players place monkey towers along the same track and split the money each round.",
+    "appid": 49520,
+    "line": "Four vault hunters shoot and loot across Pandora in one shared campaign, with enemies and guns scaling to the party.",
+    "best": "2-4 players"
+  },
+  {
+    "appid": 2085540,
+    "line": "A rogue-lite physics brawler where you and a friend throw office workers through windows on the way up the corporate ladder, picking new moves between floors.",
     "best": "2 players"
-  },
-  {
-    "appid": 1836730,
-    "line": "An open-world shooter about speed, with a hoverboard and a grappling hook, playable in co-op from the first mission.",
-    "best": "2-4 players"
-  },
-  {
-    "appid": 230410,
-    "line": "A free online action game where a squad of four runs missions together, with a long campaign and frequent updates.",
-    "best": "4 players"
-  },
-  {
-    "appid": 312660,
-    "line": "The whole WW2 campaign can be played by two players, spotting targets for each other and timing shots across large maps.",
-    "best": "2 players"
-  },
-  {
-    "appid": 1227650,
-    "line": "An open-world platformer where up to four round heroes smash through themed levels and collect everything in sight.",
-    "best": "2-4 players"
-  },
-  {
-    "appid": 960090,
-    "line": "Four players share one tower defense map, each placing monkey towers and spending their own money as the bloons speed up.",
-    "best": "2-4 players"
   },
   {
     "appid": 1599600,
@@ -238,5 +243,20 @@
     "appid": 1217060,
     "line": "Four heroes run a roguelite shooter with different weapon builds each time, reviving each other between rooms.",
     "best": "4 players"
+  },
+  {
+    "appid": 582500,
+    "line": "A free two-player puzzle game: you are split up in a frozen castle and can only talk through walkie-talkies to describe what you see.",
+    "best": "2 players"
+  },
+  {
+    "appid": 230410,
+    "line": "A free online action game where a squad of four runs missions together, with a long campaign and frequent updates.",
+    "best": "4 players"
+  },
+  {
+    "appid": 312660,
+    "line": "The whole WW2 campaign can be played by two players, spotting targets for each other and timing shots across large maps.",
+    "best": "2 players"
   }
 ]

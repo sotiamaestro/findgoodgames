@@ -92,9 +92,21 @@ npm run data:prices
 
 Add `--fallback` to any run to refresh `public/data/games.fallback.json` (the snapshot bundled with the site), and `--verbose` to log every request.
 
+Bootstrapping the `data` branch by hand (only needed before the first workflow run, or to replace it):
+
+```bash
+sh scripts/bootstrap-data-branch.sh
+```
+
 ## Curated picks
 
-`data/picks.json` is the only hand-written content: `[{ "appid": 620, "line": "one sentence", "best": "2 players" }]`. The pipeline attaches `line` to the matching game as `pick`; games listed here are always fetched even when SteamSpy and the tag query miss them, but they still have to pass the same inclusion rules.
+`data/picks.json` is the only hand-written content: `[{ "appid": 620, "line": "one sentence", "best": "2 players" }]`. The pipeline attaches `line` to the matching game as `pick` and `best` as `best`; games listed here are always fetched even when SteamSpy and the tag query miss them, but they still have to pass the same inclusion rules.
+
+To re-seed the file from a fresh build (top 40 by value plus the brief's seed titles that qualify), keeping any lines already written:
+
+```bash
+npx tsx pipeline/seed-picks.ts --merge
+```
 
 ## Credits
 
