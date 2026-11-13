@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Game } from '@shared/types';
 import { TAG_FILTER_COUNT } from '@shared/config';
-import { loadDataset, readBootstrap, type LoadedData } from './lib/data';
+import { loadDataset, readBootstrap, revalidateDataset, type LoadedData } from './lib/data';
 import { applyFilters, buildRows, defaultFilters, filtersFromParams, filtersToParams, isDefault, priceHistogram, summarize, weightedPick, type Filters } from './lib/filters';
 import { copyText, readShortlist, shortlistText, writeShortlist } from './lib/shortlist';
 import { TopBar } from './components/TopBar';
@@ -54,7 +54,13 @@ export function App() {
 
   // ---- data
   useEffect(() => {
-    loadDataset().then(setData, (err) => setLoadError(err instanceof Error ? err.message : String(err)));
+    loadDataset().then(
+      (d) => {
+        setData(d);
+        void revalidateDataset(d).then((fresh) => fresh && setData(fresh));
+      },
+      (err) => setLoadError(err instanceof Error ? err.message : String(err)),
+    );
   }, []);
 
   // ---- url sync

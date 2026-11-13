@@ -22,11 +22,11 @@ export function readBootstrap(): LoadedData | null {
   }
 }
 
-async function fetchWithTimeout(url: string, ms: number): Promise<Response> {
+async function fetchWithTimeout(url: string, ms: number, init: RequestInit = {}): Promise<Response> {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), ms);
   try {
-    return await fetch(url, { signal: ctrl.signal });
+    return await fetch(url, { ...init, signal: ctrl.signal });
   } finally {
     clearTimeout(t);
   }
@@ -46,6 +46,24 @@ export async function loadDataset(): Promise<LoadedData> {
     }
   }
   throw lastErr instanceof Error ? lastErr : new Error('could not load games.json');
+}
+
+/**
+ * jsDelivr serves the data branch with a 7 day browser cache, so a returning
+ * visitor could see last week's prices. After the first (possibly cached)
+ * load, revalidate once in the background and swap in a newer file if there is one.
+ */
+export async function revalidateDataset(current: LoadedData): Promise<LoadedData | null> {
+  if (current.source !== DATA_SOURCES[0]) return null;
+  try {
+    const res = await fetchWithTimeout(current.source, 20_000, { cache: 'no-cache' });
+    if (!res.ok) return null;
+    const dataset = (await res.json()) as Dataset;
+    if (!Array.isArray(dataset.games) || dataset.generatedAt === current.dataset.generatedAt) return null;
+    return { dataset, source: current.source, byId: new Map(dataset.games.map((g) => [g.id, g])) };
+  } catch {
+    return null;
+  }
 }
 
 export function steamStoreUrl(id: number): string {
