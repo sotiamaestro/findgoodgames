@@ -139,7 +139,18 @@ export function compactItem(it: RawStoreItem): StoreRecord | null {
     comingSoon: it.is_coming_soon === true || rel.is_coming_soon === true,
     released: isoDate(rel.steam_release_date) || isoDate(rel.original_steam_release_date),
     ea: it.is_early_access === true || rel.is_early_access === true,
-    leftEaAt: isoDate(rel.release_from_early_access_date) || null,
+    // Steam only sets release_from_early_access_date for recent exits. Older
+    // exits show as an original_steam_release_date (the Early Access launch)
+    // that precedes steam_release_date (the 1.0 launch), e.g. Brotato, Deep
+    // Rock Galactic.
+    leftEaAt:
+      isoDate(rel.release_from_early_access_date) ||
+      (!(it.is_early_access === true || rel.is_early_access === true) &&
+      rel.original_steam_release_date &&
+      rel.steam_release_date &&
+      rel.original_steam_release_date < rel.steam_release_date - 86400
+        ? isoDate(rel.steam_release_date)
+        : null),
     free,
     priceNow,
     priceBase,
