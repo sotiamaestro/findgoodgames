@@ -61,7 +61,7 @@ export function Shortlist({ games, party, onOpen, onRemove, onCopy, onClear, onB
             <li key={g.id}>
               <button class="thumb" onClick={() => onOpen(g)} aria-label={g.name}>
                 <Art game={g}>
-                  <span class="rank num">{i + 1}</span>
+                  <span class="rank num" aria-hidden="true">{i + 1}</span>
                 </Art>
               </button>
               <div class="t">

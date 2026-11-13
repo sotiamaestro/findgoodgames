@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Game } from '@shared/types';
 import { TAG_FILTER_COUNT } from '@shared/config';
-import { loadDataset, type LoadedData } from './lib/data';
+import { loadDataset, readBootstrap, type LoadedData } from './lib/data';
 import { applyFilters, buildRows, defaultFilters, filtersFromParams, filtersToParams, isDefault, priceHistogram, summarize, weightedPick, type Filters } from './lib/filters';
 import { copyText, readShortlist, shortlistText, writeShortlist } from './lib/shortlist';
 import { TopBar } from './components/TopBar';
@@ -40,9 +40,11 @@ function urlFor(s: UrlState): string {
 }
 
 export function App() {
-  const [data, setData] = useState<LoadedData | null>(null);
-  const [loadError, setLoadError] = useState<string | null>(null);
   const [url, setUrlState] = useState<UrlState>(() => readUrl());
+  const [data, setData] = useState<LoadedData | null>(() =>
+    isDefault(url.filters) && url.view === 'home' && !url.check && !url.detailId ? readBootstrap() : null,
+  );
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [draft, setDraft] = useState<Filters | null>(null); // filters being edited in the mobile sheet
   const [pick, setPick] = useState<Game | null | undefined>(undefined); // undefined = closed
@@ -76,8 +78,10 @@ export function App() {
   // ---- derived
   const games = data?.dataset.games ?? [];
   const tagNames = data?.dataset.tagNames ?? [];
+  const partial = !!data?.partial;
   const tagIndex = useMemo(() => new Map(tagNames.map((t, i) => [t, i])), [tagNames]);
   const tagOptions = useMemo(() => {
+    if (partial) return [];
     const freq = new Map<number, number>();
     for (const g of games) for (const t of g.tags) freq.set(t, (freq.get(t) ?? 0) + 1);
     return [...freq.entries()]
@@ -85,7 +89,7 @@ export function App() {
       .slice(0, TAG_FILTER_COUNT)
       .map(([i]) => tagNames[i]!)
       .sort((a, b) => a.localeCompare(b));
-  }, [games, tagNames]);
+  }, [games, tagNames, partial]);
 
   const results = useMemo(() => applyFilters(games, filters, tagIndex), [games, filters, tagIndex]);
   const rows = useMemo(() => buildRows(games, filters), [games, filters]);
@@ -205,7 +209,7 @@ export function App() {
 
               <div class="results-head">
                 <h1 class="num">
-                  All matches <span>{results.length.toLocaleString()}</span>
+                  All matches {partial ? null : <span>{results.length.toLocaleString()}</span>}
                 </h1>
                 <div class="actions">
                   <button class="pillbtn" onClick={() => setPick(weightedPick(results))} disabled={!results.length}>
@@ -243,7 +247,7 @@ export function App() {
             </>
           ) : null}
 
-          <Footer generatedAt={data?.dataset.generatedAt ?? null} source={data?.source ?? null} count={games.length} />
+          <Footer generatedAt={partial ? null : data?.dataset.generatedAt ?? null} source={partial ? null : data?.source ?? null} count={partial ? 0 : games.length} />
         </main>
       </div>
 

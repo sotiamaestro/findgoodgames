@@ -3,16 +3,16 @@ import { compact, groupCost, modeChips, oneCopy, playersLabel, usd, usdShort } f
 import { steamStoreUrl } from '../lib/data';
 import { Icon } from './icons';
 
-type ArtProps = { game: Game; eager?: boolean; wide?: boolean; children?: preact.ComponentChildren };
+type ArtProps = { game: Game; eager?: boolean; wide?: boolean; alt?: string; children?: preact.ComponentChildren };
 
 /** Fixed-ratio art box: portrait capsule, or the header image center-cropped when there is none. */
-export function Art({ game, eager = false, wide = false, children }: ArtProps) {
+export function Art({ game, eager = false, wide = false, alt, children }: ArtProps) {
   const src = wide ? game.img : game.cap ?? game.img;
   return (
     <div class={`art ${wide ? 'wide' : ''}`}>
       <img
         src={src}
-        alt=""
+        alt={alt ?? ''}
         width={wide ? 460 : 600}
         height={wide ? 215 : 900}
         loading={eager ? 'eager' : 'lazy'}
@@ -47,10 +47,10 @@ export function GameCard({ game: g, party, preferLocal, saved, showEa, eager, ta
   const one = oneCopy(g);
   return (
     <article class="card">
-      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" aria-label={`${g.name} on Steam`} title="Open the Steam store page">
-        <Art game={g} eager={eager}>
+      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" title="Open the Steam store page">
+        <Art game={g} eager={eager} alt={`${g.name} on Steam`}>
           {showEa && g.ea ? (
-            <div class="corner">
+            <div class="corner" aria-hidden="true">
               <span class="badge ea">Early Access</span>
             </div>
           ) : null}
@@ -59,7 +59,7 @@ export function GameCard({ game: g, party, preferLocal, saved, showEa, eager, ta
       <button class={`save ${saved ? 'on' : ''}`} onClick={() => onToggleSave(g)} aria-label={saved ? 'Remove from shortlist' : 'Add to shortlist'} aria-pressed={saved}>
         {saved ? <Icon.Check /> : <Icon.Plus />}
       </button>
-      <button class="details" onClick={() => onOpen(g)} aria-label={`Details for ${g.name}`}>
+      <button class="details" onClick={() => onOpen(g)}>
       <div class="name">{g.name}</div>
       <div class="price num">
         {g.price.free ? <span class="free">Free</span> : <span>{usd(g.price.now)}</span>}
@@ -113,17 +113,17 @@ type PosterProps = { game: Game; rank?: number; onOpen: (g: Game) => void; showE
 export function PosterCard({ game: g, rank, onOpen, showEa, eager }: PosterProps) {
   return (
     <div class="poster-card">
-      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" aria-label={`${g.name} on Steam`} title="Open the Steam store page">
-        <Art game={g} eager={eager}>
-          {rank ? <span class="rank num">{rank}</span> : null}
+      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" title="Open the Steam store page">
+        <Art game={g} eager={eager} alt={`${g.name} on Steam`}>
+          {rank ? <span class="rank num" aria-hidden="true">{rank}</span> : null}
           {showEa && g.ea ? (
-            <div class="corner">
+            <div class="corner" aria-hidden="true">
               <span class="badge ea">EA</span>
             </div>
           ) : null}
         </Art>
       </a>
-      <button class="caption" onClick={() => onOpen(g)} aria-label={`Details for ${g.name}`}>
+      <button class="caption" onClick={() => onOpen(g)}>
         <div class="name">{g.name}</div>
         <div class="meta num">
           <span class="pct">{g.rev.pct}%</span>
@@ -141,10 +141,10 @@ type EditorialProps = { game: Game; onOpen: (g: Game) => void; best?: string | n
 export function EditorialCard({ game: g, onOpen, best, eager }: EditorialProps) {
   return (
     <div class="edit-card">
-      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" aria-label={`${g.name} on Steam`} title="Open the Steam store page">
-        <Art game={g} wide eager={eager} />
+      <a href={steamStoreUrl(g.id)} target="_blank" rel="noopener" title="Open the Steam store page">
+        <Art game={g} wide eager={eager} alt={`${g.name} on Steam`} />
       </a>
-      <button class="body" onClick={() => onOpen(g)} aria-label={`Details for ${g.name}`}>
+      <button class="body" onClick={() => onOpen(g)}>
         <span class="label">Crew pick{best ? ` · best with ${best}` : ''}</span>
         <span class="title">{g.name}</span>
         <span class="line">{g.pick}</span>

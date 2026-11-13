@@ -258,5 +258,15 @@
     "appid": 312660,
     "line": "The whole WW2 campaign can be played by two players, spotting targets for each other and timing shots across large maps.",
     "best": "2 players"
+  },
+  {
+    "appid": 413150,
+    "line": "Up to four players run one farm, splitting the planting, mining and fishing, and sharing the money.",
+    "best": "2-4 players"
+  },
+  {
+    "appid": 431240,
+    "line": "Twelve players putt through the same mini golf course at once, with power-ups that let you knock each other off the hole.",
+    "best": "4-8 players"
   }
 ]

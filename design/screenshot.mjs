@@ -40,7 +40,7 @@ await page.screenshot({ path: out + 'filter-sheet-price.png' });
 await page.click('.sheet-head .left button');
 
 // 3. Game detail: first card in the grid.
-await page.click('.grid .card a');
+await page.click('.grid .card .details');
 await page.waitForSelector('.detail-title');
 await page.waitForTimeout(1200);
 await page.screenshot({ path: out + 'detail.png' });

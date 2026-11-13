@@ -7,7 +7,20 @@ export const DATA_SOURCES = [
   '/data/games.fallback.json',
 ];
 
-export type LoadedData = { dataset: Dataset; source: string; byId: Map<number, Game> };
+export type LoadedData = { dataset: Dataset; source: string; byId: Map<number, Game>; partial?: boolean };
+
+/** The above-the-fold subset the build inlined into index.html, if any. */
+export function readBootstrap(): LoadedData | null {
+  try {
+    const el = document.getElementById('bootstrap');
+    if (!el?.textContent) return null;
+    const dataset = JSON.parse(el.textContent) as Dataset;
+    if (!Array.isArray(dataset.games) || !dataset.games.length) return null;
+    return { dataset, source: 'bootstrap', byId: new Map(dataset.games.map((g) => [g.id, g])), partial: true };
+  } catch {
+    return null;
+  }
+}
 
 async function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   const ctrl = new AbortController();
