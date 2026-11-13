@@ -1650,6 +1650,14 @@ img {
   margin-top: 6px;
 }
 
+/* On phones the tools strip above the rows already has Pick / Copy, so the
+   results header keeps only Reset. */
+@media (max-width: 959px) {
+  .results-head .actions .pillbtn:not(.warn) {
+    display: none;
+  }
+}
+
 /* ---------- Mobile filter bar ---------- */
 .mobile-tools {
   display: flex;
