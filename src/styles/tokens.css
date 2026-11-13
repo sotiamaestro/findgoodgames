@@ -1,0 +1,66 @@
+/* Design tokens. Neutrals are sampled from the Letterboxd iOS reference
+   screenshots in design/refs (see DESIGN.md for the sample points). Accent
+   hues are our own; only the roles and saturation follow the reference. */
+
+:root {
+  color-scheme: dark;
+
+  /* Neutrals (sampled) */
+  --bg: #14181c;            /* page background: detail + list pages, left margin */
+  --bg-band: #181820;       /* home grid background band */
+  --raised: #283038;        /* raised rows, tab strips, inputs on the page */
+  --surface: #445464;       /* sheet background, bottom tab bar */
+  --surface-2: #647484;     /* segmented control track */
+  --pill: #485464;          /* tag pills on the list page */
+  --line: #3a4048;          /* hairline divider on the page */
+  --line-surface: #203242;  /* hairline divider on the sheet */
+  --art-border: rgba(255, 255, 255, 0.08); /* faint 1px inner border on art */
+
+  /* Text (sampled) */
+  --text: #ffffff;          /* titles */
+  --text-2: #9eafbf;        /* metadata grey-blue */
+  --text-3: #5c6d7d;        /* muted labels, section labels on the page */
+  --text-surface: #c2d3e3;  /* row labels on the sheet */
+  --text-surface-2: #a0b1c1;/* row values on the sheet */
+
+  /* Accents (our hues) */
+  --gfn: #76b900;           /* runs on GeForce NOW */
+  --gfn-ink: #0f1a06;
+  --warn: #ff9640;          /* Early Access, warnings, Reset */
+  --warn-ink: #2a1200;
+  --info: #3d8ee8;          /* 1 copy / Remote Play Together, information */
+  --info-ink: #ffffff;
+  --badge: #e8edf2;         /* discount badge: solid light, dark text */
+  --badge-ink: #14181c;
+  --neg: #c94f4f;           /* negative share in the ratings bar */
+
+  /* Type scale (6 steps) */
+  --t1: 11px;
+  --t2: 13px;
+  --t3: 15px;
+  --t4: 17px;
+  --t5: 22px;
+  --t6: 28px;
+
+  /* Spacing (4px grid) */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+
+  /* Shape */
+  --r-art: 4px;
+  --r-control: 6px;
+  --r-tile: 8px;
+
+  /* Fonts */
+  --font-ui: 'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-editorial: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+  /* Layout */
+  --topbar-h: 52px;
+  --rail-w: 300px;
+  --max-w: 1440px;
+}

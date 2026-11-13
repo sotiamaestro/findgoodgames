@@ -1,0 +1,9 @@
+node_modules
+dist
+.netlify
+.data
+.DS_Store
+*.log
+.env
+.env.*
+.claude/

@@ -1,0 +1,31 @@
+{
+  "name": "coop-finder",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "probe": "tsx pipeline/probe.ts",
+    "data": "tsx pipeline/build-data.ts",
+    "data:full": "tsx pipeline/build-data.ts --full",
+    "data:prices": "tsx pipeline/build-data.ts --prices"
+  },
+  "dependencies": {
+    "preact": "^11.2.0"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^6.1.1",
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^26.6.6",
+    "playwright": "^1.65.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

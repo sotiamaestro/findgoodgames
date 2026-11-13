@@ -1,0 +1,35 @@
+{
+  "purchase_type=0 (Steam), languages=[\"all\"]": {
+    "status": 200,
+    "query_summary": {
+      "num_reviews": 1,
+      "review_score": 9,
+      "review_score_desc": "Overwhelmingly Positive",
+      "total_positive": 387784,
+      "total_negative": 5010,
+      "total_reviews": 392794
+    }
+  },
+  "purchase_type=1 (All), languages=[\"all\"]": {
+    "status": 200,
+    "query_summary": {
+      "num_reviews": 1,
+      "review_score": 9,
+      "review_score_desc": "Overwhelmingly Positive",
+      "total_positive": 463595,
+      "total_negative": 6077,
+      "total_reviews": 469672
+    }
+  },
+  "defaults (english only, Steam purchases)": {
+    "status": 200,
+    "query_summary": {
+      "num_reviews": 1,
+      "review_score": 9,
+      "review_score_desc": "Overwhelmingly Positive",
+      "total_positive": 172844,
+      "total_negative": 1983,
+      "total_reviews": 174827
+    }
+  }
+}
