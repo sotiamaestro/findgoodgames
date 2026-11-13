@@ -98,6 +98,32 @@ Bootstrapping the `data` branch by hand (only needed before the first workflow r
 sh scripts/bootstrap-data-branch.sh
 ```
 
+## Verification scripts
+
+All of these run against a local production build (`npm run build` then `npx vite preview --port 4173`) and the Chrome installed on the machine:
+
+```bash
+node design/verify-url.mjs
+```
+
+```bash
+node design/verify-filters.mjs http://localhost:4173 "Phasmophobia" "R.E.P.O." "Schedule I" -- "WEBFISHING" "Hidden in Plain Sight"
+```
+
+```bash
+node design/screenshot.mjs
+```
+
+```bash
+sh design/banned-check.sh
+```
+
+```bash
+npx tsx scripts/check-game.test.mjs
+```
+
+The first checks that a copied filter URL reproduces the same results in a fresh browser; the second that Early Access and non GeForce NOW games are hidden by default and shown with the toggles; the third writes the 375px screenshots used in `design/review.md`; the fourth greps the build and copy for the brief's banned list; the last calls the Netlify function handler directly against live Steam.
+
 ## Curated picks
 
 `data/picks.json` is the only hand-written content: `[{ "appid": 620, "line": "one sentence", "best": "2 players" }]`. The pipeline attaches `line` to the matching game as `pick` and `best` as `best`; games listed here are always fetched even when SteamSpy and the tag query miss them, but they still have to pass the same inclusion rules.

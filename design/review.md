@@ -129,8 +129,8 @@ Steam's own descriptions can contain em dashes; the pipeline and the checker fun
 
 ## Lighthouse (mobile, production build, 13 November 2026)
 
-| Performance | Accessibility | Best practices | SEO | FCP | LCP | TBT | CLS |
+| Performance (median of 5) | Accessibility | Best practices | SEO | FCP | LCP (median of 5) | TBT | CLS |
 |---|---|---|---|---|---|---|---|
-| 92 | 100 | 100 | 100 | 1.5 s | 3.3 s | 80 ms | 0.01 |
+| 94 (runs: 84, 91, 94, 95, 96) | 100 | 100 | 100 | 1.5 s | 3.1 s (runs: 2.7 to 4.6 s) | 13 ms | 0.01 |
 
-The LCP element is the first Crew Picks header image, which the build preloads from index.html. The remaining Lighthouse notes are Steam's JPEG posters (no WebP or smaller portrait size exists on Steam's CDN) and the grid's DOM size at 60 cards.
+The LCP element is the first Crew Picks header image, which the build preloads from index.html; the data file is fetched only after that image has loaded (DECISIONS.md 34). Single runs vary by about plus or minus 6 points on this machine, which is why the median is reported. The remaining Lighthouse notes are Steam's JPEG posters (no WebP or smaller portrait size exists on Steam's CDN) and the grid's DOM size at 60 cards.

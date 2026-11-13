@@ -36,7 +36,9 @@ export async function loadDataset(): Promise<LoadedData> {
   let lastErr: unknown;
   for (const url of DATA_SOURCES) {
     try {
-      const res = await fetchWithTimeout(url, 12_000);
+      // Low priority: the inlined bootstrap already paints the first screen, so the
+      // poster images should win the bandwidth race against this 330 KB file.
+      const res = await fetchWithTimeout(url, 12_000, { priority: 'low' } as RequestInit);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const dataset = (await res.json()) as Dataset;
       if (!Array.isArray(dataset.games) || !dataset.generatedAt) throw new Error('bad shape');
@@ -49,14 +51,17 @@ export async function loadDataset(): Promise<LoadedData> {
 }
 
 /**
- * jsDelivr serves the data branch with a 7 day browser cache, so a returning
- * visitor could see last week's prices. After the first (possibly cached)
- * load, revalidate once in the background and swap in a newer file if there is one.
+ * jsDelivr serves the data branch with a 7 day browser cache (and its edges
+ * do not all pick up a purge at once), so a returning visitor could see last
+ * week's prices. After the first (possibly cached) load, revalidate once in the
+ * background against GitHub's raw file and swap in a newer file if there is one.
  */
 export async function revalidateDataset(current: LoadedData): Promise<LoadedData | null> {
   if (current.source !== DATA_SOURCES[0]) return null;
   try {
-    const res = await fetchWithTimeout(current.source, 20_000, { cache: 'no-cache' });
+    // raw.githubusercontent.com caches for five minutes, so it is fresh even when a
+    // jsDelivr edge has not picked up the purge yet.
+    const res = await fetchWithTimeout(DATA_SOURCES[1]!, 20_000, { cache: 'no-cache', priority: 'low' } as RequestInit);
     if (!res.ok) return null;
     const dataset = (await res.json()) as Dataset;
     if (!Array.isArray(dataset.games) || dataset.generatedAt === current.dataset.generatedAt) return null;

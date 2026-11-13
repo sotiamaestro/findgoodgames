@@ -54,13 +54,30 @@ export function App() {
 
   // ---- data
   useEffect(() => {
-    loadDataset().then(
-      (d) => {
-        setData(d);
-        void revalidateDataset(d).then((fresh) => fresh && setData(fresh));
-      },
-      (err) => setLoadError(err instanceof Error ? err.message : String(err)),
-    );
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      loadDataset().then(
+        (d) => {
+          setData(d);
+          void revalidateDataset(d).then((fresh) => fresh && setData(fresh));
+        },
+        (err) => setLoadError(err instanceof Error ? err.message : String(err)),
+      );
+    };
+    // With the inlined bootstrap on screen, let the first poster win the bandwidth
+    // race before the 330 KB data file starts; otherwise fetch straight away.
+    const first = data?.partial ? document.querySelector<HTMLImageElement>('.edit-card img, .poster-card img, .card img') : null;
+    if (!first || first.complete) {
+      start();
+      return;
+    }
+    first.addEventListener('load', start, { once: true });
+    first.addEventListener('error', start, { once: true });
+    const t = window.setTimeout(start, 700);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ---- url sync
