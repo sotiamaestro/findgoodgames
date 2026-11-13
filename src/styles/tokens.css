@@ -19,17 +19,17 @@
   /* Text (sampled) */
   --text: #ffffff;          /* titles */
   --text-2: #9eafbf;        /* metadata grey-blue */
-  --text-3: #5c6d7d;        /* muted labels, section labels on the page */
+  --text-3: #7d8e9e;        /* muted labels; lightened from the sampled #5c6d7d to reach 5.3:1 on --bg */
   --text-surface: #c2d3e3;  /* row labels on the sheet */
-  --text-surface-2: #a0b1c1;/* row values on the sheet */
+  --text-surface-2: #b8c8d8;/* row values on the sheet; lightened from the sampled #a0b1c1 to reach 4.6:1 on --surface */
 
   /* Accents (our hues) */
   --gfn: #76b900;           /* runs on GeForce NOW */
   --gfn-ink: #0f1a06;
   --warn: #ff9640;          /* Early Access, warnings, Reset */
   --warn-ink: #2a1200;
-  --info: #3d8ee8;          /* 1 copy / Remote Play Together, information */
-  --info-ink: #ffffff;
+  --info: #4da3f5;          /* 1 copy / Remote Play Together, information */
+  --info-ink: #07172a;
   --badge: #e8edf2;         /* discount badge: solid light, dark text */
   --badge-ink: #14181c;
   --neg: #c94f4f;           /* negative share in the ratings bar */

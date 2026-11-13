@@ -415,6 +415,74 @@ img {
   font-weight: 700;
 }
 
+/* ---------- Editorial card (Crew Picks) ---------- */
+.edit-card {
+  flex: none;
+  width: 236px;
+  scroll-snap-align: start;
+  text-align: left;
+  background: var(--raised);
+  border-radius: var(--r-tile);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 600px) {
+  .edit-card {
+    width: 272px;
+  }
+}
+
+.edit-card .art.wide {
+  border-radius: 0;
+}
+
+.edit-card .art.wide::after {
+  display: none;
+}
+
+.edit-card .body {
+  padding: var(--s3) var(--s3) var(--s4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  flex: 1;
+}
+
+.edit-card .label {
+  color: var(--text-2);
+}
+
+.edit-card .title {
+  font-family: var(--font-editorial);
+  font-size: var(--t5);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.edit-card .line {
+  font-family: var(--font-editorial);
+  font-size: var(--t3);
+  line-height: 1.35;
+  color: var(--text-surface);
+  flex: 1;
+}
+
+.edit-card .facts {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t2);
+  color: var(--text-2);
+  margin-top: var(--s1);
+}
+
+.edit-card .facts b {
+  color: var(--text);
+}
+
 /* ---------- Art ---------- */
 .art {
   position: relative;
@@ -1477,7 +1545,7 @@ img {
 }
 
 .ranked .rm {
-  color: var(--text-3);
+  color: var(--text-2);
   font-size: var(--t2);
   padding: var(--s2);
 }
@@ -1530,6 +1598,8 @@ img {
 
 .footer a {
   color: var(--text-2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* ---------- Toast ---------- */

@@ -57,7 +57,7 @@ export function GameCard({ game: g, party, preferLocal, saved, showEa, eager, ta
           e.preventDefault();
           onOpen(g);
         }}
-        aria-label={`${g.name}, ${g.rev.pct}% positive, ${usd(g.price.now)}`}
+        aria-label={g.name}
       >
         <Art game={g} eager={eager}>
           {showEa && g.ea ? (
@@ -116,13 +116,13 @@ export function GameCard({ game: g, party, preferLocal, saved, showEa, eager, ta
   );
 }
 
-type PosterProps = { game: Game; rank?: number; onOpen: (g: Game) => void; showEa: boolean };
+type PosterProps = { game: Game; rank?: number; onOpen: (g: Game) => void; showEa: boolean; eager?: boolean };
 
 /** Poster-only card for horizontal rows. */
-export function PosterCard({ game: g, rank, onOpen, showEa }: PosterProps) {
+export function PosterCard({ game: g, rank, onOpen, showEa, eager }: PosterProps) {
   return (
-    <button class="poster-card" onClick={() => onOpen(g)} aria-label={`${g.name}, ${g.rev.pct}% positive, ${usd(g.price.now)}`}>
-      <Art game={g}>
+    <button class="poster-card" onClick={() => onOpen(g)}>
+      <Art game={g} eager={eager}>
         {rank ? <span class="rank num">{rank}</span> : null}
         {showEa && g.ea ? (
           <div class="corner">
@@ -135,6 +135,29 @@ export function PosterCard({ game: g, rank, onOpen, showEa }: PosterProps) {
         <span class="pct">{g.rev.pct}%</span>
         <span>{usdShort(g.price.now)}</span>
         {g.price.off > 0 ? <span class="badge off">-{g.price.off}%</span> : null}
+      </div>
+    </button>
+  );
+}
+
+type EditorialProps = { game: Game; onOpen: (g: Game) => void; best?: string | null; eager?: boolean };
+
+/** Crew Picks card: header art, small uppercase label, serif title, the one-liner. */
+export function EditorialCard({ game: g, onOpen, best, eager }: EditorialProps) {
+  return (
+    <button class="edit-card" onClick={() => onOpen(g)}>
+      <Art game={g} wide eager={eager} />
+      <div class="body">
+        <span class="label">Crew pick{best ? ` · best with ${best}` : ''}</span>
+        <span class="title">{g.name}</span>
+        <span class="line">{g.pick}</span>
+        <span class="facts num">
+          <b>{g.rev.pct}%</b>
+          <span>{compact(g.rev.pos + g.rev.neg)}</span>
+          <b>{usdShort(g.price.now)}</b>
+          {g.price.off > 0 ? <span class="badge off">-{g.price.off}%</span> : null}
+          {g.gfn.ok ? <span class="badge gfn">GFN</span> : null}
+        </span>
       </div>
     </button>
   );

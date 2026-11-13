@@ -35,9 +35,9 @@ Neutrals were sampled from the hi-res reference JPEGs with Pillow (dominant colo
 | `--art-border` | `rgba(255,255,255,0.08)` | poster edges on the home grid read as a faint light rim | 1px inner border on art |
 | `--text` | `#ffffff` | "Popular this week", film titles | titles, values |
 | `--text-2` | `#9eafbf` | section label on the filter sheet; row subtitles on the lists tab read `#aebac5` | metadata |
-| `--text-3` | `#5c6d7d` | "RATINGS" label on the film page; list meta reads `#606b76` | muted labels |
+| `--text-3` | `#7d8e9e` | sampled `#5c6d7d` ("RATINGS" label on the film page; list meta reads `#606b76`), lightened so 11-13px text reaches 5.3:1 on `--bg` (the sampled value is 3.3:1) | muted labels |
 | `--text-surface` | `#c2d3e3` | "Sort by" row label on the sheet | row labels on the sheet |
-| `--text-surface-2` | `#a0b1c1` | "Member popularity" value on the sheet | row values on the sheet |
+| `--text-surface-2` | `#b8c8d8` | sampled `#a0b1c1` ("Member popularity" value on the sheet), lightened to 4.6:1 on `--surface` | row values on the sheet |
 
 Accents keep the reference's roles and saturation but use our own hues. Letterboxd's green / blue / orange are not reused.
 
@@ -45,7 +45,7 @@ Accents keep the reference's roles and saturation but use our own hues. Letterbo
 |---|---|---|
 | `--gfn` / `--gfn-ink` | `#76b900` / `#0f1a06` | runs on GeForce NOW (echoes NVIDIA's green); positive share of the ratings bar; "Done" and switch-on states |
 | `--warn` / `--warn-ink` | `#ff9640` / `#2a1200` | Early Access, warnings, Reset |
-| `--info` / `--info-ink` | `#3d8ee8` / `#ffffff` | "1 copy" / Remote Play Together, information, the shortlist save state |
+| `--info` / `--info-ink` | `#4da3f5` / `#07172a` | "1 copy" / Remote Play Together, information, the shortlist save state (dark ink, like the green and orange tiles, so 17px text passes 4.5:1) |
 | `--badge` / `--badge-ink` | `#e8edf2` / `#14181c` | discount badge: solid light with dark text, PlayStation App style |
 | `--neg` | `#c94f4f` | negative share of the ratings bar only |
 
